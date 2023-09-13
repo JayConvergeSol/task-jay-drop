@@ -12,43 +12,15 @@ import { AddConditionComponent } from '../add-condition/add-condition.component'
 export class AllConditionComponent {
   ref: DynamicDialogRef | undefined;
   allConditions:any[] = [];
-  selectedCondition1 :any = "Number equals Constant 1690590589"; 
-  selectedCondition2 = "Number equals Constant 1690865954" ; 
-  newCondition = ''; 
+
   Conditionforms = new FormGroup({    
     Condition1: new FormControl(),
     Condition2: new FormControl(),
     addCondition: this._formBuilder.array([])
   });
 
-  defaultvalue(conditionNo:number, value:string){
-    if(conditionNo == 1){
-      this.selectedCondition1 = this.allConditions.find((condition:any) => condition.name == value);
-      console.log(this.selectedCondition1);
-      
-    }else{
-      this.selectedCondition2 = this.allConditions.find((condition:any) => condition.name == value);
-    }
-  } 
-
-  get addConditionArray(): FormArray {
-    return this.Conditionforms.get('addCondition') as FormArray;
-  }
-  
-  addOneCondition() {
-    // const newExistingCondition = new FormGroup({
-    //   newCondition: new FormControl(),
-    // });
-    // this.addConditionArray.push(newExistingCondition);
-    const newCondition = new FormControl()
-    
-    this.addConditionArray.push(newCondition);
-    
-  }
-  
-  removeOneCondition(index: number) {
-    this.addConditionArray.removeAt(index);
-  }
+  selectedCondition1 :any = "Number equals Constant 1690590589"; 
+  selectedCondition2 = "Number equals Constant 1690865954" ; 
 
   constructor(
     public refs: DynamicDialogRef,
@@ -65,6 +37,29 @@ export class AllConditionComponent {
 
    this.defaultvalue(1,this.selectedCondition1)
    this.defaultvalue(2,this.selectedCondition2)
+  }
+
+  defaultvalue(conditionNo:number, value:string){
+    if(conditionNo == 1){
+      this.selectedCondition1 = this.allConditions.find((condition:any) => condition.name == value);
+      console.log(this.selectedCondition1);
+      
+    }else{
+      this.selectedCondition2 = this.allConditions.find((condition:any) => condition.name == value);
+    }
+  } 
+
+  get addConditionArray(): FormArray {
+    return this.Conditionforms.get('addCondition') as FormArray;
+  }
+  
+  addOneCondition() {
+    const newCondition = new FormControl();
+    this.addConditionArray.push(newCondition);
+  }
+  
+  removeOneCondition(index: number) {
+    this.addConditionArray.removeAt(index);
   }
 
   fetchAllCondition(){
@@ -87,10 +82,6 @@ export class AllConditionComponent {
 
   this.ref.onClose.subscribe((res:any)=>{
     this.addConditionArray.push(new FormControl(res));
-  
-    if(res){
-      this.allConditions.push(res);
-    }
   })
   }
  
