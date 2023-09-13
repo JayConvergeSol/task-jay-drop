@@ -42,8 +42,6 @@ export class AllConditionComponent {
   defaultvalue(conditionNo:number, value:string){
     if(conditionNo == 1){
       this.selectedCondition1 = this.allConditions.find((condition:any) => condition.name == value);
-      console.log(this.selectedCondition1);
-      
     }else{
       this.selectedCondition2 = this.allConditions.find((condition:any) => condition.name == value);
     }
@@ -78,14 +76,13 @@ export class AllConditionComponent {
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true
-  });
+    });
 
-  this.ref.onClose.subscribe((res:any)=>{
-    this.addConditionArray.push(new FormControl(res));
-  })
+    this.ref.onClose.subscribe((res:any)=>{
+      this.addConditionArray.push(new FormControl(res));
+    })
   }
  
-
   displayDropValue(index:any){
     let expectedCondition : any = this.Conditionforms.controls['addCondition'].value[index];
     if(expectedCondition){
