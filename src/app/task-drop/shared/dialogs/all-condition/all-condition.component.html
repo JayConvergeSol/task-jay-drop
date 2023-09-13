@@ -1,0 +1,63 @@
+<form [formGroup]="Conditionforms"> 
+    <div>
+        <label>Condition 1</label>
+        <br/>
+        <p-dropdown [options]="allConditions" [(ngModel)]="selectedCondition1"  formControlName="Condition1" optionLabel="name" [showClear]="true" placeholder="Select a Condition">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedCondition1">
+                    <div>{{ Conditionforms.controls.Condition1.value.name}}</div>
+                </div>
+            </ng-template>  
+            <ng-template let-allCondition pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ allCondition.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <div>
+        <label>Condition 2</label>
+        <br/>
+        <p-dropdown [options]="allConditions" [(ngModel)]="selectedCondition2" formControlName="Condition2" optionLabel="name" [showClear]="true" placeholder="Select a Condition">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedCondition2">
+                    <div>{{ Conditionforms.controls.Condition2.value.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-allCondition pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ allCondition.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+
+    <div formArrayName="addCondition" class="mb-3">
+            <div class="d-flex " *ngFor="let detail of addConditionArray.controls; let i = index">
+                <div class=" form-Group">
+                    <label>Condition {{i+3}}</label>
+                    <br/>
+                    <p-dropdown [options]="allConditions" formControlName="{{i}}" optionLabel="name" [showClear]="true" placeholder="Select a Condition">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ displayDropValue(i) }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-allCondition pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ allCondition.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div> 
+                <div class="mt-auto ms-3 form-Group">
+                    <p-button label="Remove" styleClass="p-button-danger" (onClick)="removeOneCondition(i)"></p-button>
+                </div>
+            </div>
+    </div>
+    <p-button class="me-3 mt-3" label="Add new Condition" styleClass="p-button-warning" (onClick)="createCondition()"></p-button>
+    <p-button class="me-3 mt-3" label="Add Existing Condition" styleClass="p-button-success" (onClick)="addOneCondition()"></p-button>
+    <br/>
+
+    <p-button type="submit" class="mt-3" icon="" label="Save" (onClick)="submitFormData(Conditionforms.value)"></p-button>
+</form>
